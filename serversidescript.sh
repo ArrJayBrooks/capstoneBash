@@ -1,6 +1,11 @@
 #!/bin/bash
 
-for filename in /home/teamprojects/Desktop/images/*.png
+for filename in *.enc
 do
-    md5sum -c $filename.md5
+	if test -f $filename; then
+		echo "Checksumming $filename"
+		md5sum -c $filename.md5
+		echo "Decrypting $filename"
+		python3 AESdec.py $filename $filename.dec
+	fi
 done
